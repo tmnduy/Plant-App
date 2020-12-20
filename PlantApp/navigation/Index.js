@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 
 import Wellcom from '../screens/Wellcom';
 import Login from '../screens/Login';
@@ -16,21 +16,17 @@ import Signup from '../screens/Signup';
 const Stack = createStackNavigator();
 export default class index extends Component {
   render() {
-    const {navigation} = this.props;
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Browse"
+          initialRouteName="Wellcom"
           screenOptions={{
             headerShown: true,
             headerTitle: null,
             headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Image
-                  source={require('../assets/icon/back2.png')}
-                  style={{width: 40, height: 40, marginLeft: 5}}
-                />
-              </TouchableOpacity>
+              <HeaderBackButton
+                onPress={(props) => this.props.navigation.goBack()}
+              />
             ),
           }}>
           <Stack.Screen
