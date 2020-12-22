@@ -90,4 +90,4 @@ const explore = [
   require('../assets/images/explore/explore14.jpg'),
   require('../assets/images/explore/explore15.jpg'),
 ];
-export {categories, product, profile, explore};
+export default {categories, product, profile, explore};

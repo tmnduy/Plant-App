@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Keyboard,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Input from '../components/Input';

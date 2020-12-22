@@ -6,7 +6,6 @@ import {Block} from './components';
 import {Apploading, Asset} from 'react-native';
 
 const images = [
-  require('./assets/icon/back.png'),
   require('./assets/icon/fertilizers.jpg'),
   require('./assets/icon/flower.jpg'),
   require('./assets/icon/plan.jpg'),
