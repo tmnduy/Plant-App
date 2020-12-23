@@ -10,6 +10,62 @@ class Browse extends Component {
 
     this.state = {
       active: 'Product',
+      categories: [
+        {
+          id: 'plant',
+          name: 'Plant',
+          tags: ['Product', 'Plant', 'Shop'],
+          count: 1000,
+          image: require('../assets/icon/plant.png'),
+        },
+        {
+          id: 'seeds',
+          name: 'Seeds',
+          tags: ['Product', 'Seeds', 'Shop'],
+          count: 180,
+          image: require('../assets/icon/seeds.jpg'),
+        },
+        {
+          id: 'flowers',
+          name: 'Flowers',
+          tags: ['Product', 'Flower', 'Shop'],
+          count: 678,
+          image: require('../assets/icon/flower.jpg'),
+        },
+        {
+          id: 'sprayers',
+          name: 'Sprayers',
+          tags: ['Product', 'Sprayers', 'Shop'],
+          count: 1870,
+          image: require('../assets/icon/sprayers.jpg'),
+        },
+        {
+          id: 'pots',
+          name: 'Pots',
+          tags: ['Product', 'Pots', 'Shop'],
+          count: 1253,
+          image: require('../assets/icon/pot.jpg'),
+        },
+        {
+          id: 'fertilizers',
+          name: 'Fertilizers',
+          tags: ['Product', 'Fertilizers', 'Shop'],
+          count: 982,
+          image: require('../assets/icon/fertilizers.jpg'),
+        },
+      ],
+      profile: [
+        {
+          username: 'Haley',
+          location: 'West',
+          email: 'contact@assa.com',
+          avatar: require('../assets/images/avatar.jpg'),
+          budget: 10000,
+          monthly_cap: 2000,
+          notification: true,
+          newletter: false,
+        },
+      ],
     };
   }
 
@@ -29,19 +85,21 @@ class Browse extends Component {
   }
 
   render() {
-    const {profile, navigation, categories} = this.props;
+    const {navigation} = this.props;
+    const {categories, profile} = this.state;
     const tabs = ['Product', 'Inspirations', 'Shop'];
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.header__title}> Browse </Text>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate('Settings');
-              console.log(profile.avatar);
-            }}>
-            <Image style={styles.header__avatar} source={profile.avatar} />
-          </TouchableOpacity>
+          {profile.map((profile) => (
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('Settings');
+              }}>
+              <Image style={styles.header__avatar} source={profile.avatar} />
+            </TouchableOpacity>
+          ))}
         </View>
         <View style={styles.tabs}>
           {tabs.map((tab) => this.renderTab(tab))}
@@ -49,43 +107,55 @@ class Browse extends Component {
         <ScrollView
           shouldCancelWhenOutside={false}
           style={{paddingVertical: 32}}>
-          {/* <View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              marginBottom: 32,
+              marginHorizontal: 10,
+              marginRight: 30,
+            }}>
             {categories.map((category) => (
-              <TouchableOpacity
-                key={category.name}
-                onPress={() => navigation.navigate('Explore', {category})}>
-                <View style={styles.card}>
-                  <View style={styles.card__item}>
-                    <Image
-                      style={{width: 60, height: 60, borderRadius: 50}}
-                      source={require('../assets/icon/flower.jpg')}
-                    />
-                    <Text
-                      style={{
-                        letterSpacing: 1,
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                        padding: 3,
-                      }}>
-                      Plant
-                    </Text>
-                    <Text style={{fontSize: 12, color: 'gray'}}>
-                      122 Product
-                    </Text>
+              <View style={{width: '50%'}} key={category.id}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Explore', {category})}>
+                  <View style={styles.card}>
+                    <View style={styles.card__item}>
+                      <Image
+                        style={{
+                          width: 60,
+                          height: 60,
+                          borderRadius: 50,
+                        }}
+                        source={category.image}
+                      />
+                      <Text
+                        style={{
+                          letterSpacing: 1,
+                          fontSize: 18,
+                          fontWeight: 'bold',
+                          padding: 3,
+                        }}>
+                        {category.name}
+                      </Text>
+                      <Text style={{fontSize: 12, color: 'gray'}}>
+                        {category.count} product
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
             ))}
           </View>
-         */}
         </ScrollView>
       </View>
     );
   }
 }
 Browse.defaultProps = {
-  profile: mocks.profile,
-  categories: mocks.categories,
+  // profile: mocks.profile,
+  // categories: mocks.categories,
 };
 
 export default Browse;
@@ -96,7 +166,6 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
   header: {
-    flex: 0.1,
     paddingHorizontal: 20,
     paddingVertical: 10,
     justifyContent: 'space-between',

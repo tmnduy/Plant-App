@@ -18,7 +18,7 @@ export default class index extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Browse"
+          initialRouteName="Settings"
           screenOptions={{
             headerShown: true,
             headerTitle: null,
@@ -35,7 +35,7 @@ export default class index extends Component {
           />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Browse" component={Browse} />
-          <Stack.Screen name="Explpre" component={Explore} />
+          <Stack.Screen name="Explore" component={Explore} />
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="Product" component={Product} />
           <Stack.Screen name="Signup" component={Signup} />
