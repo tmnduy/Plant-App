@@ -39,7 +39,7 @@ export default class Login extends Component {
       if (password != VALID_PASSWORD) {
         errors.push('password');
       }
-      if (errors.length) {
+      if (!errors.length) {
         this.setState({errors, loading: false});
         Alert.alert(
           'Error',
@@ -66,13 +66,13 @@ export default class Login extends Component {
           <Input
             style={(styles.textInput, hasErrors('email'))}
             placeholder="Email"
-            defaultValue={this.state.email}
+            defaultValue={VALID_EMAIL}
             onChangeText={(text) => this.setState({email: text})}
           />
           <Input
             secure
             style={[styles.textInput, hasErrors('password')]}
-            defaultValue={this.state.password}
+            defaultValue={VALID_PASSWORD}
             placeholder="Passwords"
             onChangeText={(text) => this.setState({password: text})}
           />

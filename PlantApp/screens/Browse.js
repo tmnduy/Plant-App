@@ -54,18 +54,16 @@ class Browse extends Component {
           image: require('../assets/icon/fertilizers.jpg'),
         },
       ],
-      profile: [
-        {
-          username: 'Haley',
-          location: 'West',
-          email: 'contact@assa.com',
-          avatar: require('../assets/images/avatar.jpg'),
-          budget: 10000,
-          monthly_cap: 2000,
-          notification: true,
-          newletter: false,
-        },
-      ],
+      profile: {
+        username: 'Haley',
+        location: 'West',
+        email: 'contact@assa.com',
+        avatar: require('../assets/images/avatar.jpg'),
+        budget: 10000,
+        monthly_cap: 2000,
+        notification: true,
+        newletter: false,
+      },
     };
   }
 
@@ -92,14 +90,12 @@ class Browse extends Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.header__title}> Browse </Text>
-          {profile.map((profile) => (
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate('Settings');
-              }}>
-              <Image style={styles.header__avatar} source={profile.avatar} />
-            </TouchableOpacity>
-          ))}
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate('Settings');
+            }}>
+            <Image style={styles.header__avatar} source={profile.avatar} />
+          </TouchableOpacity>
         </View>
         <View style={styles.tabs}>
           {tabs.map((tab) => this.renderTab(tab))}

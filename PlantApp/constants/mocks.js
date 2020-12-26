@@ -60,18 +60,16 @@ const product = [
     ],
   },
 ];
-const profile = [
-  {
-    username: 'Haley',
-    location: 'West',
-    email: 'contact@assa.com',
-    avatar: require('../assets/images/avatar.jpg'),
-    budget: 10000,
-    monthly_cap: 2000,
-    notification: true,
-    newletter: false,
-  },
-];
+const profile = {
+  username: 'Haley',
+  location: 'West',
+  email: 'contact@assa.com',
+  avatar: require('../assets/images/avatar.jpg'),
+  budget: 10000,
+  monthly_cap: 2000,
+  notification: true,
+  newletter: false,
+};
 const explore = [
   // images
   require('../assets/images/explore/explore1.jpg'),
