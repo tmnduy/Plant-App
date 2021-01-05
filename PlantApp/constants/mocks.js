@@ -61,7 +61,7 @@ const product = [
   },
 ];
 const profile = {
-  username: 'Haley',
+  username: 'Breana',
   location: 'West',
   email: 'contact@assa.com',
   avatar: require('../assets/images/avatar.jpg'),

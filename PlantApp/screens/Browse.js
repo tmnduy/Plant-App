@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {generateShadow} from 'react-native-shadow-generator';
 import {connect} from 'react-redux';
 class Browse extends Component {
@@ -9,22 +15,24 @@ class Browse extends Component {
 
     this.state = {
       active: 'Product',
+      categorie: [],
     };
+  }
+  componentDidMount() {
+    this.setState({categorie: this.props.categories});
   }
 
   handleTab = (tab) => {
     const {categories} = this.props;
-    const filtered = categories.filter((category) => {
-      console.log(category);
-    });
-
-    this.setState({active: tab, categories: filtered});
-    console.log(filtered);
+    const filtered = categories.filter((category) =>
+      category.tags.includes(tab),
+    );
+    this.setState({active: tab, categorie: filtered});
   };
 
   renderTab(tab) {
     const {active} = this.state;
-    const isActive = active == tab;
+    const isActive = active === tab;
     return (
       <ScrollView>
         <TouchableOpacity
@@ -40,8 +48,8 @@ class Browse extends Component {
   }
 
   render() {
-    const {navigation} = this.props;
-    const {categories, profile} = this.props;
+    const {navigation, profile} = this.props;
+    const {categorie} = this.state;
     const tabs = ['Product', 'Inspirations', 'Shop'];
     return (
       <View style={styles.container}>
@@ -69,7 +77,7 @@ class Browse extends Component {
               marginHorizontal: 10,
               marginRight: 30,
             }}>
-            {categories.map((category) => (
+            {categorie.map((category) => (
               <View style={{width: '50%'}} key={category.id}>
                 <TouchableOpacity
                   onPress={() => {
