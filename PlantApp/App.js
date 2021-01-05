@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import Navigation from './navigation/Index';
-import * as constants from './constants';
-import {Block} from './components';
-import {Apploading, Asset} from 'react-native';
+import {Provider} from 'react-redux';
+import mocks from './constants/mocks';
 
 const images = [
   require('./assets/icon/fertilizers.jpg'),
@@ -29,19 +28,20 @@ const images = [
 
   require('./assets/images/avatar.jpg'),
 ];
+// import {reducerName} from './reducer';
+import {createStore} from 'redux';
 
+const store = createStore((state = mocks, action) => {
+  console.log(state.categories);
+  return state;
+});
 export default class App extends Component {
-  state = {
-    isLoadingComplete: false,
-  };
-  handleResourcesAsync = async () => {
-    const cacheImages = images.map((img) => {
-      return Asset.fromModule(image).downloadAsync();
-    });
-    return Promise.all(cacheImages);
-  };
   render() {
-    return <Navigation />;
+    return (
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
+    );
   }
 }
 const styles = StyleSheet.create({
