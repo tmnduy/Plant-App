@@ -1,90 +1,47 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import mocks from '../constants/mocks';
 import {generateShadow} from 'react-native-shadow-generator';
-
+import {connect} from 'react-redux';
 class Browse extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       active: 'Product',
-      categories: [
-        {
-          id: 'plant',
-          name: 'Plant',
-          tags: ['Product', 'Plant', 'Shop'],
-          count: 1000,
-          image: require('../assets/icon/plant.png'),
-        },
-        {
-          id: 'seeds',
-          name: 'Seeds',
-          tags: ['Product', 'Seeds', 'Shop'],
-          count: 180,
-          image: require('../assets/icon/seeds.jpg'),
-        },
-        {
-          id: 'flowers',
-          name: 'Flowers',
-          tags: ['Product', 'Flower', 'Shop'],
-          count: 678,
-          image: require('../assets/icon/flower.jpg'),
-        },
-        {
-          id: 'sprayers',
-          name: 'Sprayers',
-          tags: ['Product', 'Sprayers', 'Shop'],
-          count: 1870,
-          image: require('../assets/icon/sprayers.jpg'),
-        },
-        {
-          id: 'pots',
-          name: 'Pots',
-          tags: ['Product', 'Pots', 'Shop'],
-          count: 1253,
-          image: require('../assets/icon/pot.jpg'),
-        },
-        {
-          id: 'fertilizers',
-          name: 'Fertilizers',
-          tags: ['Product', 'Fertilizers', 'Shop'],
-          count: 982,
-          image: require('../assets/icon/fertilizers.jpg'),
-        },
-      ],
-      profile: {
-        username: 'Haley',
-        location: 'West',
-        email: 'contact@assa.com',
-        avatar: require('../assets/images/avatar.jpg'),
-        budget: 10000,
-        monthly_cap: 2000,
-        notification: true,
-        newletter: false,
-      },
     };
   }
+
+  handleTab = (tab) => {
+    const {categories} = this.props;
+    const filtered = categories.filter((category) => {
+      console.log(category);
+    });
+
+    this.setState({active: tab, categories: filtered});
+    console.log(filtered);
+  };
 
   renderTab(tab) {
     const {active} = this.state;
     const isActive = active == tab;
     return (
-      <TouchableOpacity
-        key={`tab-${tab}`}
-        onPress={() => this.setState({active: tab})}
-        style={[styles.tab, isActive ? styles.active : null]}>
-        <Text style={[styles.nav, {color: !isActive ? 'gray' : '#2BDA8E'}]}>
-          {tab}
-        </Text>
-      </TouchableOpacity>
+      <ScrollView>
+        <TouchableOpacity
+          key={`tab-${tab}`}
+          onPress={() => this.handleTab(tab)}
+          style={[styles.tab, isActive ? styles.active : null]}>
+          <Text style={[styles.nav, {color: !isActive ? 'gray' : '#2BDA8E'}]}>
+            {tab}
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
     );
   }
 
   render() {
     const {navigation} = this.props;
-    const {categories, profile} = this.state;
+    const {categories, profile} = this.props;
     const tabs = ['Product', 'Inspirations', 'Shop'];
     return (
       <View style={styles.container}>
@@ -115,7 +72,9 @@ class Browse extends Component {
             {categories.map((category) => (
               <View style={{width: '50%'}} key={category.id}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('Explore', {category})}>
+                  onPress={() => {
+                    navigation.navigate('Explore', category.id);
+                  }}>
                   <View style={styles.card}>
                     <View style={styles.card__item}>
                       <Image
@@ -149,12 +108,14 @@ class Browse extends Component {
     );
   }
 }
-Browse.defaultProps = {
-  // profile: mocks.profile,
-  // categories: mocks.categories,
+const mapStateToProps = (state) => {
+  return {
+    categories: state.categories,
+    profile: state.profile,
+  };
 };
 
-export default Browse;
+export default connect(mapStateToProps)(Browse);
 
 const styles = StyleSheet.create({
   container: {
