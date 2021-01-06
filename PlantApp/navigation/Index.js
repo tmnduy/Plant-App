@@ -18,7 +18,7 @@ export default class index extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Browse"
+          initialRouteName="Wellcom"
           screenOptions={{
             headerShown: true,
             headerTitle: null,
