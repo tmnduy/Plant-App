@@ -42,24 +42,23 @@ const categories = [
     image: require('../assets/icon/fertilizers.jpg'),
   },
 ];
-const product = [
-  {
-    id: 1,
-    name: 'Legacy',
-    description:
-      'Aut sed quos harum. Aspernatur rerum omnis quia est molestiae et. Saepe suscipit et cumque.',
-    tags: ['Interior', '27 m²', 'Ideas'],
-    gallery: [
-      require('../assets/images/plant/plant.jpg'),
-      require('../assets/images/plant/plant1.jpg'),
-      require('../assets/images/plant/plant2.jpg'),
+const product = {
+  id: 1,
+  name: 'Legacy',
+  description:
+    'Aut sed quos harum. Aspernatur rerum omnis quia est molestiae et. Saepe suscipit et cumque.',
+  tags: ['Interior', '27 m²', 'Ideas'],
+  gallery: [
+    require('../assets/images/plant/plant.jpg'),
+    require('../assets/images/plant/plant1.jpg'),
+    require('../assets/images/plant/plant2.jpg'),
 
-      require('../assets/images/plant/plant3.jpg'),
-      require('../assets/images/plant/plant4.jpg'),
-      require('../assets/images/plant/plant5.jpg'),
-    ],
-  },
-];
+    require('../assets/images/plant/plant3.jpg'),
+    require('../assets/images/plant/plant4.jpg'),
+    require('../assets/images/plant/plant5.jpg'),
+    require('../assets/images/plant/plant2.jpg'),
+  ],
+};
 const profile = {
   username: 'Breana',
   location: 'West',
@@ -72,6 +71,7 @@ const profile = {
 };
 const explore = [
   // images
+
   require('../assets/images/explore/explore_1.png'),
   require('../assets/images/explore/explore_2.png'),
   require('../assets/images/explore/explore_3.png'),
@@ -82,4 +82,5 @@ const explore = [
   require('../assets/images/explore/explore2.jpg'),
   require('../assets/images/explore/explore3.jpg'),
 ];
+
 export default {categories, product, profile, explore};
