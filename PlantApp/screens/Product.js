@@ -9,37 +9,40 @@ import {
   View,
   Text,
 } from 'react-native';
+import {connect} from 'react-redux';
 
 import {theme, mocks} from '../constants';
 
 const {width, height} = Dimensions.get('window');
 
-export default class Product extends Component {
+class Product extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      product: {
-        id: 1,
-        name: '16 Best Plants That Thrive In Your Bedroom',
-        description:
-          'Bedrooms deserve to be decorated with lush greenery just like every other room in the house – but it can be tricky to find a plant that thrives here. Low light, high humidity and warm temperatures mean only certain houseplants will flourish.',
-        tags: ['Interior', '27 m²', 'Ideas'],
-        images: [
-          require('../assets/images/plant/plant.jpg'),
-          require('../assets/images/plant/plant1.jpg'),
-          require('../assets/images/plant/plant2.jpg'),
-
-          require('../assets/images/plant/plant3.jpg'),
-          require('../assets/images/plant/plant4.jpg'),
-          require('../assets/images/plant/plant5.jpg'),
-        ],
-      },
+      edit: false,
     };
   }
 
+  renderImg = (edit) => {
+    const {product} = this.props;
+    if (edit) {
+      return product.gallery
+        .slice(3)
+        .map((image, index) => (
+          <Image key={`gallery-${index}`} source={image} style={styles.image} />
+        ));
+    } else {
+      return (
+        <Text style={{marginTop: theme.sizes.base}} gray>
+          +{product.gallery.slice(3).length}
+        </Text>
+      );
+    }
+  };
+
   renderGallery() {
-    const {product} = this.state;
+    const {product} = this.props;
     return (
       <FlatList
         horizontal
@@ -47,7 +50,7 @@ export default class Product extends Component {
         scrollEnabled
         showsHorizontalScrollIndicator={false}
         snapToAlignment="center"
-        data={product.images}
+        data={product.gallery}
         keyExtractor={(item, index) => `${index}`}
         renderItem={({item}) => (
           <Image
@@ -60,7 +63,7 @@ export default class Product extends Component {
     );
   }
   render() {
-    const {product} = this.state;
+    const {product} = this.props;
 
     return (
       <View style={{flex: 1}}>
@@ -91,17 +94,27 @@ export default class Product extends Component {
                 style={{fontWeight: '500', paddingVertical: 10, fontSize: 19}}>
                 Gallery
               </Text>
-              <View style={{flexDirection: 'row'}}>
-                {product.images.slice(1, 3).map((image, index) => (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  marginHorizontal: 10,
+                }}>
+                {product.gallery.slice(1, 3).map((image, index) => (
                   <Image
                     key={`gallery-${index}`}
                     source={image}
                     style={styles.image}
                   />
                 ))}
-                <TouchableOpacity>
-                  <View style={styles.more}>
-                    <Text gray>+{product.images.slice(3).length}</Text>
+                <TouchableOpacity onPress={() => this.setState({edit: true})}>
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                    }}>
+                    {this.renderImg(this.state.edit)}
                   </View>
                 </TouchableOpacity>
               </View>
@@ -112,6 +125,13 @@ export default class Product extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {product: state.product};
+};
+
+export default connect(mapStateToProps)(Product);
+
 const styles = StyleSheet.create({
   product: {
     paddingHorizontal: theme.sizes.base * 2,
@@ -130,9 +150,10 @@ const styles = StyleSheet.create({
     marginVertical: theme.sizes.base * 0.5,
   },
   image: {
-    width: width / 3.26,
-    height: width / 3.26,
+    width: width / 3,
+    height: width / 3,
     marginRight: theme.sizes.base,
+    marginTop: theme.sizes.base,
   },
   more: {
     width: 55,
