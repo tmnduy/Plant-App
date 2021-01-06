@@ -24,6 +24,7 @@ class Explore extends Component {
     this.state = {
       searchFocus: new Animated.Value(0.6),
       searchString: null,
+      explore: [],
     };
   }
 
@@ -86,23 +87,28 @@ class Explore extends Component {
   renderExplore() {
     const {navigation, explore} = this.props;
     const mainImage = explore[0];
-
     return (
-      <View style={{marginBottom: height / 3}}>
-        <TouchableOpacity
-          style={[styles.image, styles.mainImage]}
-          onPress={() => navigation.navigate('Product')}>
-          <Image source={mainImage} style={[styles.image, styles.mainImage]} />
-        </TouchableOpacity>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-          }}>
-          {explore.slice(1).map((img, index) => this.renderImage(img, index))}
+      console.log(this.state.explore),
+      (
+        <View style={{marginBottom: height / 3}}>
+          <TouchableOpacity
+            style={[styles.image, styles.mainImage]}
+            onPress={() => navigation.navigate('Product')}>
+            <Image
+              source={mainImage}
+              style={[styles.image, styles.mainImage]}
+            />
+          </TouchableOpacity>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+            }}>
+            {explore.slice(1).map((img, index) => this.renderImage(img, index))}
+          </View>
         </View>
-      </View>
+      )
     );
   }
 
@@ -139,7 +145,9 @@ class Explore extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {explore: state.explore};
+  return {
+    explore: state.explore,
+  };
 };
 
 export default connect(mapStateToProps)(Explore);
